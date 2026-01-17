@@ -10,7 +10,7 @@ export const getProductos = async (): Promise<ProductosResponse> => {
   const token = localStorage.getItem('token');
   if (!token) throw new Error('Token no proporcionado');
 
-  const res = await fetch('http://localhost:3000/api/productos', {
+  const res = await fetch('https://flor-system.onrender.com/api/productos', {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`

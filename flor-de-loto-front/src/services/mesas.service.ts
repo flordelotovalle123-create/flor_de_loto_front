@@ -5,7 +5,7 @@ export interface Mesa {
   es_temporal: boolean
 }
 
-const BASE_URL = 'http://localhost:3000/api/mesas'
+const BASE_URL = 'https://flor-system.onrender.com/api/mesas'
 
 const getToken = () => {
   const token = localStorage.getItem('token')
@@ -104,7 +104,7 @@ export const eliminarConsumo = async (consumoId: string) => {
 
 export const generarFactura = async (mesaId: string) => {
   const res = await fetch(
-    `http://localhost:3000/api/facturas/mesa/${mesaId}`,
+    `'https://flor-system.onrender.com/api/facturas/mesa/${mesaId}`,
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${getToken()}` }
