@@ -104,7 +104,7 @@ export const eliminarConsumo = async (consumoId: string) => {
 
 export const generarFactura = async (mesaId: string) => {
   const res = await fetch(
-    `'https://flor-system.onrender.com/api/facturas/mesa/${mesaId}`,
+    `https://flor-system.onrender.com/api/facturas/mesa/${mesaId}`,
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${getToken()}` }
