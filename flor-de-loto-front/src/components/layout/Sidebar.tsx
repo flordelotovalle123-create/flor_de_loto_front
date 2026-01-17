@@ -1,7 +1,6 @@
 // src/components/Sidebar.tsx
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import logo from '../../assets/logo/Flor_de_loto.jpg'
 import '../../styles/components/Sidebar.scss'
 
 export default function Sidebar() {
@@ -19,7 +18,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <img
-        src={logo}
+        src= "/logo/Flor_de_loto.jpg"
         alt="Flor de Loto"
         className="sidebar__logo"
         onClick={() => navigate('/mesas')}
