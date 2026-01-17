@@ -1,0 +1,105 @@
+// src/styles/components/_layout.scss
+@use '../base/variables' as *;
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: $color-fondo;
+  position: relative;
+
+  // Sidebar ya está posicionada fixed
+
+  &__main {
+    flex: 1;
+    margin-left: 280px; // Ancho del sidebar
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left $transition-normal;
+    width: calc(100% - 280px);
+    
+    @media (max-width: $breakpoint-lg) {
+      margin-left: 240px;
+      width: calc(100% - 240px);
+    }
+    
+    @media (max-width: $breakpoint-md) {
+      margin-left: 200px;
+      width: calc(100% - 200px);
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      margin-left: 70px;
+      width: calc(100% - 70px);
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: $spacing-lg;
+    overflow-y: auto;
+    background: $color-fondo;
+    
+    @media (max-width: $breakpoint-md) {
+      padding: $spacing-md;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-sm;
+    }
+    
+    // Scrollbar personalizado para el contenido
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba($color-negro, 0.05);
+      border-radius: $radius-md;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba($color-lila, 0.3);
+      border-radius: $radius-md;
+      transition: background $transition-fast;
+      
+      &:hover {
+        background: rgba($color-lila, 0.5);
+      }
+    }
+    
+    scrollbar-width: thin;
+    scrollbar-color: rgba($color-lila, 0.3) rgba($color-negro, 0.05);
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($color-negro, 0.5);
+    z-index: $z-sidebar - 1;
+    display: none;
+    
+    @media (max-width: $breakpoint-sm) {
+      display: block;
+    }
+  }
+}
+
+// Animación para la página
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.layout__content > * {
+  animation: fadeIn $transition-normal ease-out;
+}

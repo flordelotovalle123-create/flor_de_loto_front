@@ -1,0 +1,500 @@
+// styles/pages/Mesas.scss
+@use '../base/variables' as *;
+@use 'sass:color'; // Agregar esta línea para usar color.adjust()
+
+// Definir variables si no existen
+$color-blanco: #ffffff !default;
+$color-negro: #000000 !default;
+$color-lila: #9c27b0 !default;
+$color-rosa: #f06292 !default;
+$color-celeste: #bbdefb !default;
+$color-fondo: #f5f5f5 !default;
+$color-error: #ef4444 !default;
+
+// Variables de diseño
+$radius-sm: 8px !default;
+$radius-md: 12px !default;
+$radius-lg: 16px !default;
+$radius-xl: 20px !default;
+$radius-round: 50% !default;
+$shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08) !default;
+$shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12) !default;
+$shadow-strong: 0 12px 36px rgba(0, 0, 0, 0.15) !default;
+
+// Breakpoints
+$breakpoint-lg: 1200px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-sm: 576px !default;
+
+// Animaciones
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mesas-page {
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(135deg, 
+    rgba($color-fondo, 0.95) 0%, 
+    rgba($color-blanco, 0.9) 100%);
+  
+  margin: 0;
+  padding: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: column;
+  
+  @media (max-width: $breakpoint-lg) {
+    padding: 1.5rem;
+  }
+  
+  @media (max-width: $breakpoint-md) {
+    padding: 1rem;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: 0.8rem;
+  }
+  
+  .mesas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba($color-rosa, 0.2);
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    width: 100%;
+    
+    .header-titulo {
+      flex: 1;
+      min-width: 280px;
+      
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $color-lila;
+        margin: 0 0 0.5rem 0;
+        background: linear-gradient(135deg, $color-rosa, $color-lila);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 1.7rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 1.5rem;
+        }
+      }
+      
+      .subtitulo {
+        color: rgba($color-negro, 0.6);
+        font-size: 0.95rem;
+        margin: 0;
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 0.9rem;
+        }
+      }
+    }
+    
+    .header-estadisticas {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      
+      .estadistica {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.8rem 1.2rem;
+        background: rgba($color-blanco, 0.8);
+        border-radius: $radius-lg;
+        border: 1px solid rgba($color-rosa, 0.15);
+        box-shadow: $shadow-soft;
+        min-width: 100px;
+        
+        @media (max-width: $breakpoint-sm) {
+          padding: 0.6rem 0.8rem;
+          min-width: 75px;
+        }
+        
+        .estadistica-valor {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: $color-lila;
+          margin-bottom: 0.3rem;
+          
+          @media (max-width: $breakpoint-sm) {
+            font-size: 1.5rem;
+          }
+        }
+        
+        .estadistica-label {
+          font-size: 0.85rem;
+          color: rgba($color-negro, 0.6);
+          font-weight: 500;
+          
+          @media (max-width: $breakpoint-sm) {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+  
+  .error-mensaje {
+    background: linear-gradient(135deg, 
+      rgba($color-error, 0.1) 0%, 
+      rgba($color-error, 0.05) 100%);
+    border-left: 4px solid $color-error;
+    padding: 1rem 1.25rem;
+    border-radius: $radius-md;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    
+    .error-contenido {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      min-width: 0;
+      
+      .error-icono {
+        font-size: 1.2rem;
+        color: $color-error;
+      }
+      
+      div {
+        strong {
+          color: $color-error;
+        }
+      }
+    }
+    
+    button {
+      background: $color-error;
+      color: $color-blanco;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: $radius-sm;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      
+      &:hover {
+        // CORREGIDO: Usar color.adjust() en lugar de darken()
+        background: color.adjust($color-error, $lightness: -10%);
+        transform: translateY(-1px);
+      }
+    }
+  }
+  
+  .cargando-mesas {
+    text-align: center;
+    padding: 4rem 1.5rem;
+    width: 100%;
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba($color-lila, 0.1);
+      border-top-color: $color-lila;
+      border-radius: $radius-round;
+      margin: 0 auto 1.5rem;
+      animation: spin 1s linear infinite;
+    }
+    
+    p {
+      color: rgba($color-negro, 0.6);
+      font-size: 1rem;
+    }
+  }
+}
+
+.mesas-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  flex: 1;
+}
+
+.mesas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  
+  justify-content: start;
+  align-items: start;
+  
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  @media (min-width: 1600px) {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  
+  @media (min-width: 1800px) {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.2rem;
+  }
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .agregar-mesa-card {
+    position: relative;
+    aspect-ratio: 1/1;
+    background: linear-gradient(135deg, 
+      rgba($color-blanco, 0.9) 0%, 
+      rgba($color-celeste, 0.1) 100%);
+    border: 2px dashed rgba($color-lila, 0.4);
+    border-radius: $radius-xl;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    
+    &:hover {
+      border-color: $color-lila;
+      background: linear-gradient(135deg, 
+        rgba($color-blanco, 0.95) 0%, 
+        rgba($color-celeste, 0.15) 100%);
+      transform: translateY(-5px);
+      box-shadow: $shadow-strong;
+      
+      .agregar-contenido {
+        transform: scale(1.05);
+      }
+      
+      .agregar-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+    
+    &.creando {
+      .agregar-contenido {
+        opacity: 0.7;
+      }
+    }
+    
+    .agregar-contenido {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.3s ease;
+      
+      .agregar-icono {
+        font-size: 3.5rem;
+        font-weight: 300;
+        color: $color-lila;
+        line-height: 1;
+        transition: all 0.3s ease;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 3rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 2.5rem;
+        }
+      }
+      
+      .agregar-texto {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $color-lila;
+        text-align: center;
+        background: linear-gradient(135deg, $color-lila, $color-rosa);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+        @media (max-width: $breakpoint-md) {
+          font-size: 0.9rem;
+        }
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 0.8rem;
+        }
+      }
+    }
+    
+    .agregar-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: $color-negro;
+      color: $color-blanco;
+      padding: 0.5rem 1rem;
+      border-radius: $radius-sm;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: $shadow-medium;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 6px solid transparent;
+        border-top-color: $color-negro;
+      }
+    }
+  }
+}
+
+.sin-mesas {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: rgba($color-blanco, 0.8);
+  border-radius: $radius-xl;
+  border: 2px dashed rgba($color-lila, 0.3);
+  width: 100%;
+  
+  .sin-mesas-icono {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: rgba($color-lila, 0.5);
+    
+    @media (max-width: $breakpoint-sm) {
+      font-size: 3rem;
+    }
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    color: $color-lila;
+    margin-bottom: 0.5rem;
+    
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.3rem;
+    }
+  }
+  
+  p {
+    color: rgba($color-negro, 0.6);
+    margin-bottom: 2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.95rem;
+  }
+  
+  .btn-crear-primera {
+    background: linear-gradient(135deg, $color-rosa, $color-lila);
+    color: $color-blanco;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: $radius-md;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba($color-lila, 0.3);
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba($color-lila, 0.4);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.modal-overlay-mesa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1999;
+  animation: fadeIn 0.3s ease;
+}
+
+@media (max-width: $breakpoint-sm) {
+  .mesas-page {
+    .mesas-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      
+      .header-estadisticas {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media (min-width: 2000px) {
+  .mesas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}

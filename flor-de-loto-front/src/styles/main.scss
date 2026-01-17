@@ -1,0 +1,8 @@
+// src/styles/main.scss
+@use './base/variables';
+@use './base/reset';
+@use './base/mixins';
+@use './components/layout';
+@use './pages/Login';
+@use './components/mesa-panel-detalle';
+@use './components/modal-productos';

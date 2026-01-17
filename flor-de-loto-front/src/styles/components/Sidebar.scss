@@ -1,0 +1,396 @@
+// src/styles/components/_sidebar.scss
+@use '../base/variables' as *;
+
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background: $gradient-sidebar;
+  backdrop-filter: blur(10px);
+  color: $color-negro;
+  padding: $spacing-xl $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: $z-sidebar;
+  box-shadow: $shadow-strong;
+  overflow-y: auto;
+  transition: all $transition-normal;
+  border-right: 1px solid rgba($color-borde, 0.3);
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba($color-negro, 0.05);
+    border-radius: $radius-md;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color-lila, 0.4);
+    border-radius: $radius-md;
+    transition: background $transition-fast;
+
+    &:hover {
+      background: rgba($color-lila, 0.6);
+    }
+  }
+
+  // Firefox scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: rgba($color-lila, 0.4) rgba($color-negro, 0.05);
+
+  // Logo
+  &__logo {
+    width: 180px;
+    height: auto;
+    margin: 0 auto $spacing-xxl;
+    border-radius: $radius-lg;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all $transition-normal;
+    border: 3px solid rgba($color-blanco, 0.1);
+    box-shadow: $shadow-soft;
+    
+    &:hover {
+      transform: scale(1.05);
+      border-color: rgba($color-lila, 0.3);
+      box-shadow: $shadow-medium;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Welcome section
+  &__welcome {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    padding-bottom: $spacing-lg;
+    border-bottom: 1px solid rgba($color-borde, 0.5);
+
+    &-title {
+      margin: 0 0 $spacing-sm;
+      font-size: 1.125rem; // 18px
+      font-weight: 500;
+      color: rgba($color-negro, 0.7);
+      letter-spacing: 0.5px;
+    }
+
+    &-user {
+      margin: 0;
+      font-size: 1.5rem; // 24px
+      font-weight: 700;
+      color: $color-lila;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // Navigation
+  &__nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      padding: $spacing-md $spacing-lg;
+      border-radius: $radius-lg;
+      cursor: pointer;
+      transition: all $transition-normal;
+      color: rgba($color-negro, 0.8);
+      background: transparent;
+      border: none;
+      text-align: left;
+      font-size: 1rem;
+      font-family: $font-main;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, $color-rosa, $color-lila);
+        transform: scaleY(0);
+        transition: transform $transition-normal;
+        border-radius: $radius-sm;
+      }
+
+      &:hover {
+        background: rgba($color-lila, 0.1);
+        color: $color-negro;
+        transform: translateX($spacing-sm);
+        box-shadow: $shadow-soft;
+
+        &::before {
+          transform: scaleY(1);
+        }
+
+        .sidebar__nav-icon {
+          transform: scale(1.1);
+        }
+      }
+
+      &:active {
+        transform: translateX($spacing-sm) scale(0.98);
+      }
+
+      &.active {
+        background: linear-gradient(90deg, rgba($color-lila, 0.15), rgba($color-rosa, 0.1));
+        color: $color-lila;
+        font-weight: 600;
+        box-shadow: $shadow-soft;
+
+        &::before {
+          transform: scaleY(1);
+        }
+
+        .sidebar__nav-icon {
+          color: $color-lila;
+        }
+      }
+    }
+
+    &-icon {
+      font-size: 1.25rem; // 20px
+      margin-right: $spacing-md;
+      width: 24px;
+      text-align: center;
+      transition: all $transition-normal;
+    }
+
+    &-text {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+  }
+
+  // Logout button
+  &__logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-md;
+    background: linear-gradient(135deg, rgba($color-error, 0.1), rgba($color-error, 0.05));
+    color: $color-error;
+    border: 2px solid rgba($color-error, 0.2);
+    border-radius: $radius-lg;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all $transition-normal;
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+    font-family: $font-main;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba($color-blanco, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, rgba($color-error, 0.2), rgba($color-error, 0.1));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba($color-error, 0.15);
+      border-color: rgba($color-error, 0.3);
+
+      &::before {
+        left: 100%;
+      }
+
+      .sidebar__logout-icon {
+        transform: translateX(-3px);
+      }
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+
+  &__logout-icon {
+    font-size: 1.125rem; // 18px
+    margin-right: $spacing-sm;
+    transition: transform $transition-normal;
+  }
+
+  &__logout-text {
+    font-size: 1rem;
+  }
+}
+
+// Responsive Design
+// Tablet
+@media (max-width: $breakpoint-lg) {
+  .sidebar {
+    width: 240px;
+    padding: $spacing-lg $spacing-md;
+    
+    &__logo {
+      width: 160px;
+      margin-bottom: $spacing-xl;
+    }
+    
+    &__welcome {
+      margin-bottom: $spacing-lg;
+      
+      &-title {
+        font-size: 1rem;
+      }
+      
+      &-user {
+        font-size: 1.25rem;
+      }
+    }
+    
+    &__nav-item {
+      padding: $spacing-sm $spacing-md;
+    }
+  }
+}
+
+// Mobile
+@media (max-width: $breakpoint-md) {
+  .sidebar {
+    width: 200px;
+    
+    &__logo {
+      width: 140px;
+    }
+    
+    &__welcome {
+      &-title {
+        font-size: 0.875rem;
+      }
+      
+      &-user {
+        font-size: 1.125rem;
+      }
+    }
+    
+    &__nav-text {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Mobile pequeño (modo compacto)
+@media (max-width: $breakpoint-sm) {
+  .sidebar {
+    width: 70px;
+    padding: $spacing-lg $spacing-sm;
+    
+    &__logo {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto $spacing-xl;
+      padding: $spacing-xs;
+      border-width: 2px;
+    }
+    
+    &__welcome,
+    &__nav-text,
+    &__logout-text {
+      display: none;
+    }
+    
+    &__nav {
+      &-item {
+        justify-content: center;
+        padding: $spacing-md 0;
+        margin-bottom: $spacing-sm;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+        
+        &::before {
+          width: 100%;
+          height: 3px;
+          top: auto;
+          bottom: 0;
+          transform: scaleX(0);
+        }
+        
+        &:hover::before,
+        &.active::before {
+          transform: scaleX(1);
+        }
+      }
+      
+      &-icon {
+        margin-right: 0;
+        font-size: 1.5rem;
+      }
+    }
+    
+    &__logout {
+      justify-content: center;
+      padding: $spacing-md 0;
+      
+      &-icon {
+        margin-right: 0;
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+// Animaciones
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.sidebar {
+  animation: slideInLeft $transition-normal ease-out;
+}
+
+.sidebar__nav-item {
+  animation: slideInLeft 0.6s ease-out backwards;
+  
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: 0.1s * $i;
+    }
+  }
+}
+
+// Overlay para modal (mantenido por compatibilidad)
+.modal-overlay-mesa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($color-negro, 0.5);
+  z-index: $z-modal - 1;
+  backdrop-filter: blur(3px);
+}

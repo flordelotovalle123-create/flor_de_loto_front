@@ -1,0 +1,17 @@
+@mixin flex-center {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+@mixin card {
+background: $blanco;
+border-radius: $radius-md;
+box-shadow: $shadow-soft;
+}
+
+
+@mixin transition {
+transition: all 0.3s ease;
+}
