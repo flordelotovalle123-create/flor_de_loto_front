@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import "../../styles/pages/Login.scss";
 import { useNavigate } from "react-router-dom";
+import logo from '@/assets/logo/Flor_de_loto.jpg'
 
 export default function Login() {
 const { login } = useAuth()
@@ -25,11 +26,8 @@ const handleSubmit = async (e: React.FormEvent) => {
 return (
   <div className="login-page">
     <div className="login-card">
-      <img
-        src="/src/assets/logo/Flor_de_loto.jpg"
-        alt="flor de loto"
-        className="login-logo"
-      />
+
+      <img src={logo} alt="flor de loto" className="login-logo" />
       
       <form onSubmit={handleSubmit} className="login-form">
         <input
